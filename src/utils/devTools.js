@@ -1,7 +1,3 @@
-/**
- * Created by Dds on 04.03.2017.
- */
-
 import React from 'react';
 import { createStore as initialCreateStore, compose } from 'redux';
 

@@ -1,13 +1,31 @@
-/**
- * Created by Dds on 05.03.2017.
- */
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import React, { Component } from 'react';
+import * as FriendsActions from '../actions/index';
+import { FriendList, AddFriendInput } from '../components';
+
+@connect(state => ({
+    friendlist: state.friendlist
+}))
 
 export default class FriendListApp extends React.Component {
-    render() {
+
+    static propTypes = {
+        friendsById: PropTypes.object.isRequired,
+        dispatch: PropTypes.func.isRequired
+    }
+
+    render () {
+        const { friendlist: { friendsById }, dispatch } = this.props;
+        const actions = bindActionCreators(FriendsActions, dispatch);
+
         return (
-            <h1>Hello, world!</h1>
+            <div>
+                <h1>The FriendList</h1>
+                <AddFriendInput addFriend={actions.addFriend} />
+                <FriendList friends={friendsById} actions={actions} />
+            </div>
         );
     }
 }
